@@ -1,0 +1,152 @@
+:root {
+	--nav_tr_length: 0ms; /* Could also be 300ms but currently grid doesn't allow transitions, so this is the fastest way to change it */
+}
+.nav, .fakeNav {
+	min-height: 1px;
+	border-right: 2px solid transparent;
+	transition: width var(--nav_tr_length);
+}
+.nav {
+	background: rgba(0, 172, 140, 0.02);
+}
+
+@media screen and (min-width: 666px) {
+	.navWrapper {
+		width: 100%;
+		padding-right: 2px;
+		height: calc(100vh - 50px);
+		overflow-y: auto;
+		overflow-x: hidden;
+		-webkit-overflow-scrolling: touch;
+		display: block;
+		position: -webkit-sticky;
+		position: sticky;
+		top: 50px; left: 0;
+		transition: var(--nav_tr_length);
+	}
+	.nav {
+		width: calc(100% - 2px);
+		min-height: 100%;
+		border-right: 2px solid var(--border);
+	}
+	.nav.smaller .chevronLi {
+		transform: rotate(180deg);
+	}
+	.nav.smaller h3 span {
+		opacity: 0 !important;
+	}
+	.allWrapper {
+		flex-wrap: nowrap;
+	}
+	.navUl {
+		margin: 0;
+		padding-top: 16px;
+	}
+}
+
+@media screen and (max-width: 665px) {
+	.content_wrapper {
+		grid-template-columns: 1fr !important;
+	}
+	.navWrapper, .nav {
+		width: 100%;
+		margin: 0; padding: 0; border: 0;
+	}
+	.bodyDiv {
+		width: 100%;
+	}
+	.allWrapper {
+		padding: 0; margin: 0; border: 0;
+		flex-wrap: wrap;
+	}
+	.chevronLiDiv {
+		display: none !important;
+	}
+	.navUl {
+		display: flex; flex-wrap: wrap;
+		justify-content: center;
+		padding: 0; margin: 0; border: 0;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	.nav .navUl li .liContent h3 svg {
+		margin: 10px;
+	}
+	.nav .navUl li .liContent h3 span {
+		display: none !important;
+	}
+	.nav .navUl li {
+		width: 44px !important;
+	}
+	.nav .navUl li .liContent {
+		padding: 0 !important;
+		border-radius: 6px;
+	}
+	.nav .navUl li.selected {
+		border: 2px solid var(--border);
+		border-radius: 6px;
+	}
+	.nav .navUl li.selected .removeBorder {
+		display: none !important;
+	}
+}
+.nav .navUl {
+	list-style-type: none;
+	padding-left: 0;
+}
+.nav .chevronLi {
+	transform: rotate(0deg);
+	transition: 300ms;
+}
+.nav .navUl li {
+	position: relative;
+	display: flex;
+	border-bottom: 2px solid transparent;
+	border-top: 2px solid transparent;
+}
+.nav .navUl li .liContent {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 15px;
+	overflow-x: hidden;
+}
+.nav .navUl li .liContent h3 {
+	margin: 0;
+	display: flex;
+	align-items: center;
+}
+.nav .navUl li .liContent h3 span {
+	opacity: 1;
+	transition: opacity 300ms;
+	font-weight: 500;
+	color: var(--text);
+}
+.nav .navUl li .liContent h3 .svg_div {
+	margin-right: 10px;
+}
+.nav .navUl li .liContent h3 svg {
+	width: 24px; min-width: 24px;
+	height: 24px;
+}
+.nav .navUl li .removeBorder {
+	width: 2px; height: 100%;
+	position: absolute;
+	right: -2px;
+	background: transparent;
+}
+.nav .navUl li.selected .removeBorder {
+	background: var(--body);
+}
+
+.nav .navUl li.selected {
+	background: var(--body);
+	border-bottom: 2px solid var(--border);
+	border-top: 2px solid var(--border);
+}
+
+
+.svg_div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

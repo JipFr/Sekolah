@@ -1,0 +1,55 @@
+@media screen and (min-width: 800px) {
+	.navWrapper {
+		width: 250px;
+		position: fixed;
+		left: 0;
+	}
+	.nav li {
+		padding: 7px 0;
+	}
+	.nav li.selected {
+		background: var(--mainTransparentOpaque);
+		border-top-right-radius: 25px;
+		border-bottom-right-radius: 25px;
+	}
+	.nav li .svg_div {
+		width: 25px; height: 25px;
+		padding: 5px;
+		border-radius: 50%;
+		display: flex; justify-content: center; align-items: center;
+		margin-right: 10px;
+	}
+	.nav li.selected .svg_div {
+		background: var(--main);
+	}
+	.nav li svg {
+		transform: scale(0.8);
+	}
+	.nav li.selected svg {
+		stroke: var(--textOnMain);
+	}
+
+}
+.navWrapper ul {
+	margin: 0;
+	margin-top: 20px;
+	padding: 0;
+	list-style-type: none;
+}
+.navWrapper h3 {
+	display: flex;
+	align-items: center;
+	padding: 0 20px;
+	margin: 0;
+}
+.navWrapper h3 span {
+	font-weight: 400;
+}
+
+.chevronLiDiv {
+	display: none;
+}
+
+.bodyDiv {
+	width: 100%;
+}

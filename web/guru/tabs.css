@@ -1,0 +1,14 @@
+.bodyDiv {
+	width: 100%;
+	display: flex; justify-content: center;
+}
+.containers {
+	width: 95%;
+}
+.container {
+	width: 100%;
+	padding-bottom: 20px;
+}
+.hide-container {
+	display: none;
+}

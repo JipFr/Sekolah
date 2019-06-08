@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="NL">
+	<head>
+		<title>Sekolah Guru</title>
+		<!-- Apple stuff. -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="apple-touch-icon" href="icon_teacher.png">
+		<link rel="apple-touch-startup-image" href="launch.png">
+				
+		<!-- Basic stuff -->
+		<meta charset="utf-8">
+		<link rel="manifest" href="manifest.json">
+		<link rel="stylesheet" href="nav.css">
+		<link rel="stylesheet" href="tabs.css">
+		<link rel="stylesheet" href="style.css">
+		<link rel="icon" href="icon_teacher.png">
+		<meta name="description" content="Cool ding">
+		<meta name="keywords" content="Keywords">
+		<meta name="theme-color" content="#00ac8c">
+		<!-- This is supposed to help with rich preview. -->
+		<meta name="og:description" content="Cool ding">
+		<meta name="og:title" content="Sekolah Guru">
+		<meta name="og:image" content="icon_teacher.png">
+		<!-- Viewport -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+		<!-- Twitter stuff -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@jipfr" />
+		<meta name="twitter:creator" content="@jipfr" />
+		<meta name="twitter:title" content="Sekolah Guru">
+		<meta name="twitter:description" content="Cool ding" />
+		<meta name="twitter:image:src" content="https://app.sekolah.nl/icon_student.png" />
+
+	</head>
+	<body>
+		<script>
+			function update_settings() {
+				if(!localStorage.getItem("settings")) {
+					localStorage.setItem("settings", "{}");
+				}
+				let settings = JSON.parse(localStorage.getItem("settings"));
+				Object.keys(settings).forEach(setting => {
+					let value = settings[setting];
+					document.body.setAttribute("data-setting-" + setting, value);
+				});
+				window.addEventListener("load", () => {
+					document.querySelectorAll(".setting").forEach(el => {
+						if(settings[el.getAttribute("data-setting")]) {
+							el.querySelector("input[type='checkbox']").checked = settings[el.getAttribute("data-setting")];
+						}
+					});
+				});
+			}
+			update_settings();
+			function set_setting(setting, value) {
+				let settings = JSON.parse(localStorage.getItem("settings"));
+				settings[setting] = value;
+				localStorage.setItem("settings", JSON.stringify(settings));
+				update_settings();
+			}
+		</script>
+		<header>
+			<div class="headerOverlay">
+				<div class="headerLeft headerDiv">
+				
+				</div>
+				<div class="headerRight headerDiv">
+					<!-- <img src="https://sekolah.nl/users/default.png" class="icon headerItem" onclick="toggleIconMenu();"> -->
+				</div>
+			</div>
+		</header>
+		<div class="notShowing"></div>
+		<div class="content_wrapper">
+			<div class="navWrapper">
+					<div class="nav">
+						<ul class="navUl">
+							<li class="tab chevronLiDiv" onclick="toggleMenu();">
+								<div class="liContent">
+									<h3>
+										<div class="svg_div">
+											<svg xmlns="http://www.w3.org/2000/svg" id="chevrons-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--main)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-left chevronLi"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+										</div>
+									</h3>
+								</div>
+								<div class="removeBorder"></div>
+							</li>
+							<li onclick="set_tab('schedules', true); schedule_load_all();" data-page="schedules">
+								<div class="liContent">
+									<h3>
+										<div class="svg_div">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--main)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+										</div>
+										<span class="auditLogSpan">Roosters</span>
+									</h3>
+								</div>
+								<div class="removeBorder"></div>
+							</li>
+							<li class="tab" onclick="set_tab('assignments', true); assignment_load_all();" data-page="assignments">
+								<div class="liContent">
+									<h3>
+										<div class="svg_div">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--main)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+										</div>
+										<span class="uptimeSpan">Opdrachten</span>
+									</h3>
+								</div>
+								<div class="removeBorder"></div>
+							</li>
+							<li class="tab" onclick="set_tab('settings', true);" data-page="settings">
+								<div class="liContent">
+									<h3>
+										<div class="svg_div">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--main)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+										</div>
+										<span class="uptimeSpan">Instellingen</span>
+									</h3>
+								</div>
+								<div class="removeBorder"></div>
+							</li>
+						</ul>
+						<ul class="navUl">
+							<li class="tab" onclick="apply_all()" data-page="settings">
+								<div class="liContent">
+									<h3>
+										<div class="svg_div">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--main)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>										</div>
+										<span class="uptimeSpan">Opslaan</span>
+									</h3>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- <div class="fakeNav"></div> -->
+			<div class="allWrapper">
+				
+				<div class="bodyDiv">
+					<div class="containers">
+						<div class="container schedules">
+							<h2 class="spread your_schedules_title">
+								<span>Uw roosters</span>
+								<svg onclick="new_schedule();" class="hover_opacity" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+							</h2>
+							<div class="page_main">
+								<div class="page_left page_part">
+									<div class="item_small_list">
+										
+									</div>
+								</div>
+								<div class="page_center page_part">
+									<div class="page_center_content">
+										<div class="schedule_edit_wrapper">
+											
+										</div>
+									</div>
+								</div>
+								<div class="page_right page_part">
+									<div class="right_side_wrapper"></div>
+								</div>
+							</div>
+						</div>
+						<div class="container assignments">
+							<h2 class="spread your_schedules_title">
+								<span>Uw opdrachten</span>
+								<svg onclick="new_assignment();" class="hover_opacity" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+							</h2>
+							<div class="page_main">
+								<div class="page_left page_part">
+									<div class="item_small_list">
+										
+									</div>
+								</div>
+								<div class="page_center page_part">
+									<div class="page_center_content">
+										<div class="assignment_edit_wrapper">
+											
+										</div>
+									</div>
+								</div>
+								<div class="page_right page_part">
+									<div class="right_side_wrapper"></div>
+								</div>
+							</div>
+						</div>
+						<div class="container settings">
+							<h2>Instellingen</h2>
+							<div class="setting dark-theme-setting" data-setting="dark-theme">
+								<input type="checkbox" onchange="set_setting('dark-theme', this.checked)"><label>Donker thema</label>
+							</div>
+							<div class="setting grayscale-setting" data-setting="grayscale">
+								<input type="checkbox" onchange="set_setting('grayscale', this.checked)"><label>Zwart / wit</label>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>defaultTab = "schedules";</script>
+	<script src="tabs.js"></script>
+	<script src="main.js"></script>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sekolah</title>
+		<!-- Apple stuff. -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="apple-touch-icon" href="icon_student.png">
+		<link rel="apple-touch-startup-image" href="launch.png">
+				
+		<!-- Basic stuff -->
+		<meta charset="utf-8">
+		<link rel="manifest" href="manifest.json">
+		<link rel="stylesheet" href="tabs.css">
+		<link rel="stylesheet" href="pattern.css">
+		<link rel="stylesheet" href="style.css">
+		<link rel="icon" href="icon_student.png">
+		<meta name="description" content="Cool ding">
+		<meta name="keywords" content="Keywords">
+		<meta name="theme-color" content="#00ac8c">
+		<!-- This is supposed to help with rich preview. -->
+		<meta name="og:description" content="Cool ding">
+		<meta name="og:title" content="Sekolah">
+		<meta name="og:image" content="icon_student.png">
+		<!-- Viewport -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+		<!-- Twitter stuff -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@jipfr" />
+		<meta name="twitter:creator" content="@jipfr" />
+		<meta name="twitter:title" content="Sekolah">
+		<meta name="twitter:description" content="Cool ding" />
+		<meta name="twitter:image:src" content="https://sekolah.nl/icon.png" />
+
+	</head>
+	<body data-theme="dark">
+		<script>
+			function update_settings() {
+				if(!localStorage.getItem("settings")) {
+					localStorage.setItem("settings", "{}");
+				}
+				let settings = JSON.parse(localStorage.getItem("settings"));
+				Object.keys(settings).forEach(setting => {
+					let value = settings[setting];
+					document.body.setAttribute("data-setting-" + setting, value);
+				});
+				window.addEventListener("load", () => {
+					document.querySelectorAll(".setting").forEach(el => {
+						if(settings[el.getAttribute("data-setting")]) {
+							el.querySelector("input[type='checkbox']").checked = settings[el.getAttribute("data-setting")];
+						}
+					});
+				});
+			}
+			update_settings();
+			function set_setting(setting, value) {
+				let settings = JSON.parse(localStorage.getItem("settings"));
+				settings[setting] = value;
+				localStorage.setItem("settings", JSON.stringify(settings));
+				update_settings();
+			}
+		</script>
+		<header>
+			<div class="headerOverlay">
+				
+			</div>
+		</header>
+		<div class="notShowing"></div>
+		<div class="content_wrapper">
+			<div class="allWrapper">
+				<div class="bodyDiv">
+					<div class="containers">
+						<div class="container schedule">
+
+							<div class="schedule_left_wrapper">
+								<div class="schedule_left">
+									<div class="card tmp_setting_card">
+										<h3>Tijdelijk instellingen</h3>
+										<div class="setting_input setting" data-setting="dark_theme">
+											<input type="checkbox" onchange="set_setting(this.parentNode.getAttribute('data-setting'), this.checked)">
+											<label>Donker thema</label>
+										</div>
+									</div>
+									<div class="card schedule_card no_left">
+										<div class="schedule_top">
+											<h2 class="title">Rooster</h2>
+											<h2 class="date title secondary">1 Januari 1970</h2>
+										</div>
+										<div class="schedule_wrapper">
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="schedule_right_wrapper">
+								<div class="schedule_right">
+									
+									<div class="card profile_card">
+										<div class="profile_left">
+											<img src="https://api.sekolah.nl/img/default_user.png">
+										</div>
+										<div class="profile_main">
+											<div>
+												<h3 class="text">...</h3>
+												<p class="text">...</p>
+											</div>
+										</div>
+									</div>
+
+									<div class="card calendar_card">
+										<div class="calendar_wrapper">
+											<div class="calendar_top">
+												<div class="calendar_navigation calendar_backward">
+													<div class="nav_div" onclick="decrease_month()">
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
+													</div>
+												</div>
+												<div class="calendar_center">
+													<p class="text">Mei 2019</p>
+												</div>
+												<div class="calendar_navigation calendar_forward">
+													<div class="nav_div" onclick="increase_month()">
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+													</div>
+												</div>
+											</div>
+											<div class="calendar_days calendar_7">
+												<p class="text">zon</p>
+												<p class="text">maa</p>
+												<p class="text">din</p>
+												<p class="text">woe</p>
+												<p class="text">don</p>
+												<p class="text">vri</p>
+												<p class="text">zat</p>
+											</div>
+											<div class="calendar_dates calendar_7">
+
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="container assignments">
+							
+						</div>
+						<div class="container settings">
+							
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="tabs.js"></script>
+	<script src="main.js"></script>
+</html>

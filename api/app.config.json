@@ -1,0 +1,8 @@
+{
+  "apps" : [{
+    "name"        : "Sekolah API",
+    "script"      : "sekolah-api.js",
+    "watch"       : true,
+    "ignore_watch": ["*.json", "users/*", "users/*.json", "data/*", "data/*.json"]
+}]
+}
